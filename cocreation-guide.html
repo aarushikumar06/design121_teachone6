@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Co-Creation Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --white: #FFFFFF;
+  --off-white: #F7F5F0;
+  --light-gray: #E8E4DC;
+  --mid-gray: #B8B2A8;
+  --dark-gray: #4A4540;
+  --ink: #1C1814;
+  --accent: #2C5F8A;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--off-white); color: var(--ink); overflow-x: hidden; }
+
+/* SLIDE 1 */
+#slide1 {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  padding: 4rem 2rem; background: var(--white);
+  border-bottom: 1px solid var(--light-gray); position: relative;
+}
+.eyebrow { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mid-gray); margin-bottom: 2.5rem; }
+#slide1 blockquote {
+  font-family: 'EB Garamond', serif; font-style: italic;
+  font-size: clamp(1.7rem, 4vw, 3rem); line-height: 1.25;
+  max-width: 640px; color: var(--ink); font-weight: 400;
+}
+.thin-rule { width: 1px; height: 48px; background: var(--light-gray); margin: 2rem auto; }
+.s1-sub { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.05rem; color: var(--dark-gray); }
+.scroll-cue {
+  position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid-gray);
+  animation: drift 2.4s ease-in-out infinite;
+}
+@keyframes drift { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+
+/* SLIDE 2 */
+#slide2 { min-height: 100vh; padding: 5rem 2rem 5rem; background: var(--white); border-bottom: 1px solid var(--light-gray); }
+.slide-header { max-width: 860px; margin: 0 auto 2.5rem; }
+.slide-number { display: block; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mid-gray); margin-bottom: 0.5rem; }
+.slide-title { font-family: 'EB Garamond', serif; font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 400; color: var(--ink); margin-bottom: 0.3rem; }
+.slide-subtitle { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1rem; color: var(--dark-gray); }
+
+.lowfi-note {
+  display: none; max-width: 860px; margin: 0 auto 2rem;
+  background: #FDF8EC; border: 1px solid #D4C070; border-radius: 3px;
+  padding: 0.75rem 1rem; font-family: 'EB Garamond', serif; font-style: italic;
+  font-size: 0.92rem; color: #5A4E10; line-height: 1.5;
+}
+.lowfi-note.show { display: block; }
+.lowfi-note strong { font-style: normal; font-weight: 700; }
+
+.map-outer { max-width: 860px; margin: 0 auto; overflow-x: auto; }
+#mindmap { display: block; width: 100%; min-width: 660px; }
+
+/* Result panel */
+#resultPanel {
+  display: none; max-width: 860px; margin: 2rem auto 0;
+  background: var(--ink); color: white; border-radius: 3px; padding: 2rem 2.25rem;
+}
+#resultPanel.show { display: block; animation: up 0.35s ease; }
+@keyframes up { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+.result-tag { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mid-gray); margin-bottom: 0.4rem; }
+.result-name { font-family: 'EB Garamond', serif; font-size: 2rem; font-weight: 400; margin-bottom: 0.75rem; }
+.result-body { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.05rem; color: rgba(255,255,255,0.72); line-height: 1.6; border-left: 1px solid rgba(255,255,255,0.15); padding-left: 1rem; margin-bottom: 1.1rem; }
+.result-tip { font-size: 0.8rem; color: rgba(255,255,255,0.45); line-height: 1.55; }
+.reset-link { display: inline-block; margin-top: 1.25rem; font-size: 0.75rem; color: rgba(255,255,255,0.35); cursor: pointer; border: none; background: none; font-family: 'DM Sans', sans-serif; padding: 0; }
+.reset-link:hover { color: rgba(255,255,255,0.65); }
+
+/* SLIDE 3 */
+#slide3 { min-height: 100vh; padding: 5rem 2rem; background: var(--off-white); }
+.q-grid { max-width: 860px; margin: 2.5rem auto 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1px; border: 1px solid var(--light-gray); background: var(--light-gray); }
+.q-item { background: var(--white); padding: 1.75rem 1.5rem; }
+.q-num { font-family: 'EB Garamond', serif; font-style: italic; font-size: 0.85rem; color: var(--mid-gray); margin-bottom: 0.6rem; }
+.q-text { font-family: 'EB Garamond', serif; font-size: 1.05rem; line-height: 1.5; }
+
+footer { text-align: center; padding: 2.5rem 1rem; font-family: 'EB Garamond', serif; font-style: italic; font-size: 0.85rem; color: var(--mid-gray); border-top: 1px solid var(--light-gray); background: var(--white); }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1 -->
+<section id="slide1">
+  <p class="eyebrow">A guide to co-creation</p>
+  <blockquote>"Every minute you spend designing alone is a minute you've spent guessing"</blockquote>
+  <div class="thin-rule"></div>
+  <p class="s1-sub">Scroll to plan your co-creation session</p>
+  <div class="scroll-cue">
+    scroll
+    <svg width="12" height="18" viewBox="0 0 12 18" fill="none"><path d="M6 1v14M1 11l5 5 5-5" stroke="#B8B2A8" stroke-width="1"/></svg>
+  </div>
+</section>
+
+<!-- SLIDE 2 -->
+<section id="slide2">
+  <div class="slide-header">
+    <span class="slide-number">02 — Prototype planner</span>
+    <h2 class="slide-title">Planning your sacrificial prototypes</h2>
+    <p class="slide-subtitle">Click through the map below to find the right method for your co-creation session.</p>
+  </div>
+
+  <div class="lowfi-note" id="lowfiNote">
+    <strong>Note:</strong> Co-creation shouldn't initially involve high-fidelity prototypes — co-creators may feel hesitant to truly critique your ideas if they believe you've already spent too much time on the project. Keep your prototypes low-fidelity and easily iterable!
+  </div>
+
+  <div class="map-outer">
+    <!--
+      TREE STRUCTURE (left→right layout, y increases downward):
+
+      [Q1: High or Low fidelity?]
+        ├─ High → [END: warning]
+        └─ Low  → [Q2: Is it modeling an experience?]
+                    ├─ Yes → [Q3: Does it require active service / direct human–customer interaction?]
+                    │          ├─ Yes → [RESULT: Simulation]
+                    │          └─ No  → [RESULT: Role Play]
+                    └─ No  → [Q4: Physical or Digital?]
+                               ├─ Physical → [Q5: Specific moment or regular repeated usage?]
+                               │               ├─ Specific  → [RESULT: Wizard of Oz]
+                               │               └─ Repeated  → [RESULT: Storyboard]
+                               └─ Digital  → [Q5b: Complex few screens or simple many screens?]
+                                               ├─ Complex few  → [RESULT: Vibe Code]
+                                               └─ Simple many  → [RESULT: Paper Prototype]
+
+      SVG layout (top-down):
+        Row 0 (y=20–60):   Q1
+        Row 1 (y=90–126):  btn-high | btn-low
+        Row 2 (y=160–196): [end-high] | Q2-experience
+        Row 3 (y=230–266): [hidden] | btn-yes-exp | btn-no-exp
+        Row 4 (y=300–336): Q3-service | Q4-medium
+        Row 5 (y=370–406): btn-yes-svc | btn-no-svc | btn-phys | btn-dig
+        Row 6 (y=440–476): res-sim | res-role | Q5-phys | Q5-dig
+        Row 7 (y=510–546): [hidden] | [hidden] | btn-spec | btn-rep | btn-cfew | btn-smany
+        Row 8 (y=580–610): res-wiz | res-story | res-vibe | res-paper
+
+      X positions:
+        Col left-high:  cx=160
+        Col left:       cx=280  (experience yes branch)
+        Col mid:        cx=430  (experience no / divider)
+        Col right:      cx=600  (digital branch)
+        Col far-right:  cx=740  (digital branch right)
+    -->
+    <svg id="mindmap" viewBox="0 0 860 640" xmlns="http://www.w3.org/2000/svg" style="font-family:'DM Sans',sans-serif; overflow:visible;">
+
+      <!-- ── Q1: High or Low fidelity? ── -->
+      <rect x="255" y="18" width="350" height="48" rx="3" fill="white" stroke="#C8C0B4" stroke-width="1"/>
+      <text x="430" y="38" text-anchor="middle" font-size="11" fill="#1C1814" font-weight="500">Are you making a high- or low-fidelity prototype?</text>
+      <text x="430" y="54" text-anchor="middle" font-size="10" fill="#4A4540">Co-creation should always begin low-fidelity</text>
+
+      <!-- Lines Q1 → choices -->
+      <line x1="340" y1="66" x2="200" y2="100" stroke="#C8C0B4" stroke-width="1"/>
+      <line x1="520" y1="66" x2="620" y2="100" stroke="#C8C0B4" stroke-width="1"/>
+      <text x="248" y="91" text-anchor="middle" font-size="9" fill="#B8B2A8">High</text>
+      <text x="582" y="91" text-anchor="middle" font-size="9" fill="#B8B2A8">Low</text>
+
+      <!-- btn-high -->
+      <rect id="btn-high" x="120" y="100" width="160" height="36" rx="3" fill="white" stroke="#C8C0B4" stroke-width="1" style="cursor:pointer" onclick="choose('fidelity','high')"/>
+      <text id="lbl-high" x="200" y="122" text-anchor="middle" font-size="11" fill="#1C1814" style="pointer-events:none">High fidelity</text>
+
+      <!-- btn-low -->
+      <rect id="btn-low" x="540" y="100" width="160" height="36" rx="3" fill="white" stroke="#C8C0B4" stroke-width="1" style="cursor:pointer" onclick="choose('fidelity','low')"/>
+      <text id="lbl-low" x="620" y="122" text-anchor="middle" font-size="11" fill="#1C1814" style="pointer-events:none">Low fidelity</text>
+
+      <!-- END high -->
+      <line id="ln-high-end" x1="200" y1="136" x2="200" y2="164" stroke="#C8C0B4" stroke-width="1" display="none"/>
+      <rect id="res-high" x="100" y="164" width="200" height="52" rx="3" fill="#1C1814" stroke="#1C1814" display="none"/>
+      <text id="lbl-high1" x="200" y="185" text-anchor="middle" font-size="11" fill="white" display="none">⚠ Go low-fidelity first</text>
+      <text id="lbl-high2" x="200" y="203" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,0.5)" display="none">Co-creators need room to critique freely</text>
+
+      <!-- ── Q2: Is it modeling an experience? ── -->
+      <line id="ln-low-q2" x1="620" y1="136" x2="620" y2="164" stroke="#C8C0B4" stroke-width="1" display="none"/>
+      <rect id="node-q2" x="450" y="164" width="340" height="48" rx="3" fill="white" stroke="#C8C0B4" stroke-width="1" display="none"/>
+      <text id="lbl-q2a" x="620" y="184" text-anchor="middle" font-size="11" fill="#1C1814" font-weight="500" display="none">Is your prototype modeling an experience?</text>
+      <text id="lbl-q2b" x="620" y="200" text-anchor="middle" font-size="10" fill="#4A4540" display="none">Rather than a product or interface</text>
+
+      <!-- Lines Q2 → yes/no -->
+      <line id="ln-q2-yes" x1="565" y1="212" x2="430" y2="246" stroke="#C8C0B4" stroke-width="1" display="none"/>
+      <line id="ln-q2-no"  x1="675" y1="212" x2="730" y2="246" stroke="#C8C0B4" stroke-width="1" display="none"/>
+      <text id="lbl-q2-yes" x="479" y="234" text-anchor="middle" font-size="9" fill="#B8B2A8" display="none">Yes</text>
+      <text id="lbl-q2-no"  x="718" y="234" text-anchor="middle" font-size="9" fill="#B8B2A8" display="none">No</text>
+
+      <!-- btn-yes-exp -->
+      <rect id="btn-exp-yes" x="340" y="246" width="180" height="36" rx="3" fill="white" stroke="#C8C0B4" stroke-width="1" display="none" style="cursor:pointer" onclick="choose('experience','yes')"/>
+      <text id="lbl-exp-yes" x="430" y="268" text-anchor="middle" font-size="11" fill="#1C1814" display="none" style="pointer-events:none">Yes, it's an experience</text>
+
+      <!-- btn-no-exp -->
+      <rect id="btn-exp-no" x="640" y="246" width="180" height="36" rx="3" fill="white" stroke="#C8C0B4" stroke-width="1" display="none" style="cursor:pointer" onclick="choose('experience','no')"/>
+      <text id="lbl-exp-no" x="730" y="268" text-anchor="middle" font-size="11" fill="#1C1814" display="none" style="pointer-events:none">No, it's a product</text>
+
+      <!-- ── Q3: Active service? (experience=yes branch) ── -->
+      <line id="ln-exp-q3" x1="430" y1="282" x2="430" y2="316" stroke="#C8C0B4" stroke-width="1" display="none"/>
+      <rect id="node-q3" x="260" y="316" width="340" height="48" rx="3" fill="white" stroke="#C8C0B4" stroke-width="1" display="none"/>
+      <text id="lbl-q3a" x="430" y="336" text-anchor="middle" font-size="11" fill="#1C1814" font-weight="500" display="none">Does it require active service?</text>
+      <text id="lbl-q3b" x="430" y="352" text-anchor="middle" font-size="10" fill="#4A4540" display="none">Involving direct human–customer interaction</text>
+
+      <!-- Lines Q3 → yes/no -->
+      <line id="ln-q3-yes" x1="370" y1="364" x2="310" y2="398" stroke="#C8C0B4" stroke-width="1" display="none"/>
+      <line id="ln-q3-no"  x1="490" y1="364" x2="550" y2="398" stroke="#C8C0B4" stroke-width="1" display="none"/>
+      <text id="lbl-q3-yes" x="323" y="386" text-anchor="middle" font-size="9" fill="#B8B2A8" display="none">Yes</text>
+      <text id="lbl-q3-no"  x="534" y="386" text-anchor="middle" font-size="9" fill="#B8B2A8" display="none">No</text>
+
+      <!-- btn-svc-yes -->
+      <rect id="btn-svc-yes" x="220" y="398" width="180" height="36" rx="3" fill="white" stroke="#C8C0B4" stroke-width="1" display="none" style="cursor:pointer" onclick="choose('service','yes')"/>
+      <text id="lbl-svc-yes" x="310" y="420" text-anchor="middle" font-size="11" fill="#1C1814" display="none" style="pointer-events:none">Yes, active service</text>
+
+      <!-- btn-svc-no -->
+      <rect id="btn-svc-no" x="460" y="398" width="180" height="36" rx="3" fill="white" stroke="#C8C0B4" stroke-width="1" display="none" style="cursor:pointer" onclick="choose('service','no')"/>
+      <text id="lbl-svc-no" x="550" y="420" text-anchor="middle" font-size="11" fill="#1C1814" display="none" style="pointer-events:none">No, passive</text>
+
+      <!-- RESULT: Simulation -->
+      <line id="ln-sim" x1="310" y1="434" x2="310" y2="460" stroke="#C8C0B4" stroke-width="1" display="none"/>
+      <rect id="res-sim" x="220" y="460" width="180" height="36" rx="3" fill="#1C1814" display="none"/>
+      <text id="lbl-sim" x="310" y="482" text-anchor="middle" font-size="11.5" fill="white" display="none">Simulation</text>
+
+      <!-- RESULT: Role Play -->
+      <line id="ln-role" x1="550" y1="434" x2="550" y2="460" stroke="#C8C0B4" stroke-width="1" display="none"/>
+      <rect id="res-role" x="460" y="460" width="180" height="36" rx="3" fill="#1C1814" display="none"/>
+      <text id="lbl-role" x="550" y="482" text-anchor="middle" font-size="11.5" fill="white" display="none">Role Play</text>
+
+      <!-- ── Q4: Physical or Digital? (experience=no branch) ── -->
+      <line id="ln-exp-q4" x1="730" y1="282" x2="730" y2="316" stroke="#C8C0B4" stroke-width="1" display="none"/>
+      <rect id="node-q4" x="560" y="316" width="340" height="48" rx="3" fill="white" stroke="#C8C0B4" stroke-width="1" display="none"/>
+      <text id="lbl-q4a" x="730" y="336" text-anchor="middle" font-size="11" fill="#1C1814" font-weight="500" display="none">Is your prototype physical or digital?</text>
+      <text id="lbl-q4b" x="730" y="352" text-anchor="middle" font-size="10" fill="#4A4540" display="none">The medium of the product you're prototyping</text>
+
+      <!-- Lines Q4 → phys/dig -->
+      <line id="ln-q4-phys" x1="680" y1="364" x2="620" y2="398" stroke="#C8C0B4" stroke-width="1" display="none"/>
+      <line id="ln-q4-dig"  x1="780" y1="364" x2="840" y2="398" stroke="#C8C0B4" stroke-width="1" display="none"/>
+      <text id="lbl-q4-phys" x="632" y="386" text-anchor="middle" font-size="9" fill="#B8B2A8" display="none">Physical</text>
+      <text id="lbl-q4-dig"  x="826" y="386" text-anchor="middle" font-size="9" fill="#B8B2A8" display="none">Digital</text>
+
+      <!-- btn-phys -->
+      <rect id="btn-phys" x="530" y="398" width="180" height="36" rx="3" fill="white" stroke="#C8C0B4" stroke-width="1" display="none" style="cursor:pointer" onclick="choose('medium','physical')"/>
+      <text id="lbl-phys" x="620" y="420" text-anchor="middle" font-size="11" fill="#1C1814" display="none" style="pointer-events:none">Physical</text>
+
+      <!-- btn-dig -->
+      <rect id="btn-dig" x="750" y="398" width="100" height="36" rx="3" fill="white" stroke="#C8C0B4" stroke-width="1" display="none" style="cursor:pointer" onclick="choose('medium','digital')"/>
+      <text id="lbl-dig" x="800" y="420" text-anchor="middle" font-size="11" fill="#1C1814" display="none" style="pointer-events:none">Digital</text>
+
+      <!-- ── Q5-phys: Specific moment or regular use? ── -->
+      <line id="ln-phys-q5" x1="620" y1="434" x2="620" y2="468" stroke="#C8C0B4" stroke-width="1" display="none"/>
+      <rect id="node-q5p" x="450" y="468" width="340" height="48" rx="3" fill="white" stroke="#C8C0B4" stroke-width="1" display="none"/>
+      <text id="lbl-q5pa" x="620" y="488" text-anchor="middle" font-size="11" fill="#1C1814" font-weight="500" display="none">Does it address a specific moment of a day</text>
+      <text id="lbl-q5pb" x="620" y="504" text-anchor="middle" font-size="11" fill="#1C1814" font-weight="500" display="none">or more regular, repeated usage?</text>
+
+      <!-- Lines Q5p → spec/rep -->
+      <line id="ln-q5p-spec" x1="565" y1="516" x2="530" y2="550" stroke="#C8C0B4" stroke-width="1" display="none"/>
+      <line id="ln-q5p-rep"  x1="675" y1="516" x2="710" y2="550" stroke="#C8C0B4" stroke-width="1" display="none"/>
+      <text id="lbl-q5p-spec" x="530" y="540" text-anchor="middle" font-size="9" fill="#B8B2A8" display="none">Specific</text>
+      <text id="lbl-q5p-rep"  x="714" y="540" text-anchor="middle" font-size="9" fill="#B8B2A8" display="none">Repeated</text>
+
+      <!-- btn-spec -->
+      <rect id="btn-spec" x="440" y="550" width="180" height="36" rx="3" fill="white" stroke="#C8C0B4" stroke-width="1" display="none" style="cursor:pointer" onclick="choose('usage','specific')"/>
+      <text id="lbl-spec" x="530" y="572" text-anchor="middle" font-size="11" fill="#1C1814" display="none" style="pointer-events:none">Specific moment</text>
+
+      <!-- btn-rep -->
+      <rect id="btn-rep" x="620" y="550" width="180" height="36" rx="3" fill="white" stroke="#C8C0B4" stroke-width="1" display="none" style="cursor:pointer" onclick="choose('usage','repeated')"/>
+      <text id="lbl-rep" x="710" y="572" text-anchor="middle" font-size="11" fill="#1C1814" display="none" style="pointer-events:none">Regular, repeated use</text>
+
+      <!-- RESULT: Wizard of Oz -->
+      <line id="ln-wiz" x1="530" y1="586" x2="530" y2="610" stroke="#C8C0B4" stroke-width="1" display="none"/>
+      <rect id="res-wiz" x="440" y="610" width="180" height="36" rx="3" fill="#1C1814" display="none"/>
+      <text id="lbl-wiz" x="530" y="632" text-anchor="middle" font-size="11.5" fill="white" display="none">Wizard of Oz</text>
+
+      <!-- RESULT: Storyboard -->
+      <line id="ln-story" x1="710" y1="586" x2="710" y2="610" stroke="#C8C0B4" stroke-width="1" display="none"/>
+      <rect id="res-story" x="620" y="610" width="180" height="36" rx="3" fill="#1C1814" display="none"/>
+      <text id="lbl-story" x="710" y="632" text-anchor="middle" font-size="11.5" fill="white" display="none">Storyboarding</text>
+
+      <!-- ── Q5-dig: Complex few or simple many screens? ── -->
+      <line id="ln-dig-q5" x1="800" y1="434" x2="800" y2="468" stroke="#C8C0B4" stroke-width="1" display="none"/>
+      <rect id="node-q5d" x="634" y="468" width="332" height="48" rx="3" fill="white" stroke="#C8C0B4" stroke-width="1" display="none"/>
+      <text id="lbl-q5da" x="800" y="488" text-anchor="middle" font-size="11" fill="#1C1814" font-weight="500" display="none">Is it a full app or just a few</text>
+      <text id="lbl-q5db" x="800" y="504" text-anchor="middle" font-size="11" fill="#1C1814" font-weight="500" display="none">complex screens?</text>
+
+      <!-- Lines Q5d → cfew/smany -->
+      <line id="ln-q5d-cfew"  x1="754" y1="516" x2="720" y2="550" stroke="#C8C0B4" stroke-width="1" display="none"/>
+      <line id="ln-q5d-smany" x1="846" y1="516" x2="840" y2="550" stroke="#C8C0B4" stroke-width="1" display="none"/>
+      <text id="lbl-q5d-cf" x="716" y="540" text-anchor="middle" font-size="9" fill="#B8B2A8" display="none">Few complex</text>
+      <text id="lbl-q5d-sm" x="846" y="540" text-anchor="middle" font-size="9" fill="#B8B2A8" display="none">Full app</text>
+
+      <!-- btn-cfew -->
+      <rect id="btn-cfew" x="630" y="550" width="180" height="36" rx="3" fill="white" stroke="#C8C0B4" stroke-width="1" display="none" style="cursor:pointer" onclick="choose('screens','cfew')"/>
+      <text id="lbl-cfew" x="720" y="572" text-anchor="middle" font-size="11" fill="#1C1814" display="none" style="pointer-events:none">Few complex screens</text>
+
+      <!-- btn-smany -->
+      <rect id="btn-smany" x="750" y="550" width="100" height="36" rx="3" fill="white" stroke="#C8C0B4" stroke-width="1" display="none" style="cursor:pointer" onclick="choose('screens','smany')"/>
+      <text id="lbl-smany" x="800" y="572" text-anchor="middle" font-size="11" fill="#1C1814" display="none" style="pointer-events:none">Full app</text>
+
+      <!-- RESULT: Vibe Code -->
+      <line id="ln-vibe" x1="720" y1="586" x2="720" y2="610" stroke="#C8C0B4" stroke-width="1" display="none"/>
+      <rect id="res-vibe" x="630" y="610" width="180" height="36" rx="3" fill="#1C1814" display="none"/>
+      <text id="lbl-vibe" x="720" y="632" text-anchor="middle" font-size="11.5" fill="white" display="none">Vibe Code</text>
+
+      <!-- RESULT: Paper Prototype -->
+      <line id="ln-paper" x1="800" y1="586" x2="800" y2="610" stroke="#C8C0B4" stroke-width="1" display="none"/>
+      <rect id="res-paper" x="750" y="610" width="100" height="36" rx="3" fill="#1C1814" display="none"/>
+      <text id="lbl-paper" x="800" y="632" text-anchor="middle" font-size="11.5" fill="white" display="none">Paper Prototype</text>
+
+    </svg>
+  </div>
+
+  <!-- Result detail panel -->
+  <div id="resultPanel">
+    <p class="result-tag">Recommended prototype method</p>
+    <h3 class="result-name" id="rName"></h3>
+    <p class="result-body" id="rBody"></p>
+    <p class="result-tip" id="rTip"></p>
+    <button class="reset-link" onclick="location.reload()">← Start over</button>
+  </div>
+</section>
+
+<!-- SLIDE 3 -->
+<section id="slide3">
+  <div class="slide-header" style="max-width:860px;margin:0 auto 0;">
+    <span class="slide-number">03 — Reflect</span>
+    <h2 class="slide-title">Questions to consider</h2>
+    <p class="slide-subtitle">Ask yourself these before running your co-creation session.</p>
+  </div>
+  <div class="q-grid">
+    <div class="q-item">
+      <p class="q-num">01</p>
+      <p class="q-text">Do you and your co-creator have shared authorship?</p>
+    </div>
+    <div class="q-item">
+      <p class="q-num">02</p>
+      <p class="q-text">Is it a reciprocal relationship, rather than extractatory?</p>
+    </div>
+    <div class="q-item">
+      <p class="q-num">03</p>
+      <p class="q-text">Does your co-creator party have intersectional relationships?</p>
+    </div>
+    <div class="q-item">
+      <p class="q-num">04</p>
+      <p class="q-text">Does the co-creation extend beyond marketing campaigns?</p>
+    </div>
+  </div>
+</section>
+
+<footer>Co-creation guide — plan thoughtfully, prototype humbly.</footer>
+
+<script>
+const RESULTS = {
+  high: {
+    name: 'Go low-fidelity first',
+    body: 'Co-creation shouldn\'t initially involve high-fidelity prototypes. Co-creators may feel hesitant to truly critique your ideas if they believe you\'ve spent too much time on the project. Keep your prototypes rough and easily iterable.',
+    tip: '→ Revisit this map after scaling back to a low-fidelity version.'
+  },
+  simulation: {
+    name: 'Simulation',
+    body: 'Create a mock set-up of your product, service, or experience for users to interact with in a realistic, staged context. This works well when direct human-to-customer interaction is central to the experience.',
+    tip: '→ The more immersive the scene you create, the richer and more honest the co-creator\'s feedback will be.'
+  },
+  roleplay: {
+    name: 'Role Play',
+    body: 'A skit that illustrates your idea, experience, or product. Get into character and actually try something new. This works best for experiences that don\'t require active service infrastructure.',
+    tip: '→ Embodied play unlocks insights that sketches and screens simply cannot reach.'
+  },
+  wizard: {
+    name: 'Wizard of Oz',
+    body: 'A research method where people interact with an interface, system, or object being controlled by an unseen actor — simulating automation for a specific moment or interaction before anything is built.',
+    tip: '→ Perfect for testing a discrete touchpoint without committing to a full system.'
+  },
+  storyboard: {
+    name: 'Storyboarding',
+    body: 'A series of sketches or pictures that demonstrate the end-to-end solution for a user scenario across repeated, regular usage. Maps out the journey over time.',
+    tip: '→ Keep them rough and hand-drawn — over-polish signals you\'re not open to changes.'
+  },
+  vibe: {
+    name: 'Vibe Code',
+    body: 'A clickable set of images, videos, or content that allows users to interact, explore, and understand a product or service. Ideal when you have a small number of rich, complex screens to validate.',
+    tip: '→ Great for testing the feel and information architecture before committing to full build.'
+  },
+  paper: {
+    name: 'Paper Prototype',
+    body: 'A drawing or sketch of an idea on a paper interface that users can physically interact with — moving, swapping, or annotating elements across a larger, simpler app flow.',
+    tip: '→ Fast, cheap, and highly collaborative. Tangibility makes feedback richer and more honest.'
+  }
+};
+
+function s(id) { const e=document.getElementById(id); if(e) e.removeAttribute('display'); }
+function h(id) { const e=document.getElementById(id); if(e) e.setAttribute('display','none'); }
+function fill(btnId, lblId) {
+  const b=document.getElementById(btnId), l=document.getElementById(lblId);
+  if(b){ b.setAttribute('fill','#1C1814'); b.setAttribute('stroke','#1C1814'); b.style.cursor='default'; b.removeAttribute('onclick'); }
+  if(l) l.setAttribute('fill','white');
+}
+
+function showResult(key) {
+  const r = RESULTS[key];
+  document.getElementById('rName').textContent = r.name;
+  document.getElementById('rBody').textContent = r.body;
+  document.getElementById('rTip').textContent = r.tip;
+  const p = document.getElementById('resultPanel');
+  p.classList.add('show');
+  setTimeout(() => p.scrollIntoView({ behavior:'smooth', block:'nearest' }), 120);
+}
+
+function choose(q, val) {
+  if (q === 'fidelity') {
+    fill(val==='high'?'btn-high':'btn-low', val==='high'?'lbl-high':'lbl-low');
+    h(val==='high'?'btn-low':'btn-high'); h(val==='high'?'lbl-low':'lbl-high');
+    if (val === 'high') {
+      document.getElementById('lowfiNote').classList.add('show');
+      ['ln-high-end','res-high','lbl-high1','lbl-high2'].forEach(s);
+      showResult('high');
+    } else {
+      ['ln-low-q2','node-q2','lbl-q2a','lbl-q2b',
+       'ln-q2-yes','ln-q2-no','lbl-q2-yes','lbl-q2-no',
+       'btn-exp-yes','lbl-exp-yes','btn-exp-no','lbl-exp-no'].forEach(s);
+    }
+  }
+
+  else if (q === 'experience') {
+    fill(val==='yes'?'btn-exp-yes':'btn-exp-no', val==='yes'?'lbl-exp-yes':'lbl-exp-no');
+    h(val==='yes'?'btn-exp-no':'btn-exp-yes'); h(val==='yes'?'lbl-exp-no':'lbl-exp-yes');
+    h('lbl-q2-yes'); h('lbl-q2-no');
+    if (val === 'yes') {
+      ['ln-exp-q3','node-q3','lbl-q3a','lbl-q3b',
+       'ln-q3-yes','ln-q3-no','lbl-q3-yes','lbl-q3-no',
+       'btn-svc-yes','lbl-svc-yes','btn-svc-no','lbl-svc-no'].forEach(s);
+    } else {
+      ['ln-exp-q4','node-q4','lbl-q4a','lbl-q4b',
+       'ln-q4-phys','ln-q4-dig','lbl-q4-phys','lbl-q4-dig',
+       'btn-phys','lbl-phys','btn-dig','lbl-dig'].forEach(s);
+    }
+  }
+
+  else if (q === 'service') {
+    fill(val==='yes'?'btn-svc-yes':'btn-svc-no', val==='yes'?'lbl-svc-yes':'lbl-svc-no');
+    h(val==='yes'?'btn-svc-no':'btn-svc-yes'); h(val==='yes'?'lbl-svc-no':'lbl-svc-yes');
+    h('lbl-q3-yes'); h('lbl-q3-no');
+    if (val === 'yes') {
+      ['ln-sim','res-sim','lbl-sim'].forEach(s);
+      showResult('simulation');
+    } else {
+      ['ln-role','res-role','lbl-role'].forEach(s);
+      showResult('roleplay');
+    }
+  }
+
+  else if (q === 'medium') {
+    fill(val==='physical'?'btn-phys':'btn-dig', val==='physical'?'lbl-phys':'lbl-dig');
+    h(val==='physical'?'btn-dig':'btn-phys'); h(val==='physical'?'lbl-dig':'lbl-phys');
+    h('lbl-q4-phys'); h('lbl-q4-dig');
+    if (val === 'physical') {
+      ['ln-phys-q5','node-q5p','lbl-q5pa','lbl-q5pb',
+       'ln-q5p-spec','ln-q5p-rep','lbl-q5p-spec','lbl-q5p-rep',
+       'btn-spec','lbl-spec','btn-rep','lbl-rep'].forEach(s);
+    } else {
+      ['ln-dig-q5','node-q5d','lbl-q5da','lbl-q5db',
+       'ln-q5d-cfew','ln-q5d-smany','lbl-q5d-cf','lbl-q5d-sm',
+       'btn-cfew','lbl-cfew','btn-smany','lbl-smany'].forEach(s);
+    }
+  }
+
+  else if (q === 'usage') {
+    fill(val==='specific'?'btn-spec':'btn-rep', val==='specific'?'lbl-spec':'lbl-rep');
+    h(val==='specific'?'btn-rep':'btn-spec'); h(val==='specific'?'lbl-rep':'lbl-spec');
+    h('lbl-q5p-spec'); h('lbl-q5p-rep');
+    if (val === 'specific') {
+      ['ln-wiz','res-wiz','lbl-wiz'].forEach(s);
+      showResult('wizard');
+    } else {
+      ['ln-story','res-story','lbl-story'].forEach(s);
+      showResult('storyboard');
+    }
+  }
+
+  else if (q === 'screens') {
+    fill(val==='cfew'?'btn-cfew':'btn-smany', val==='cfew'?'lbl-cfew':'lbl-smany');
+    h(val==='cfew'?'btn-smany':'btn-cfew'); h(val==='cfew'?'lbl-smany':'lbl-cfew');
+    h('lbl-q5d-cf'); h('lbl-q5d-sm');
+    if (val === 'cfew') {
+      ['ln-vibe','res-vibe','lbl-vibe'].forEach(s);
+      showResult('vibe');
+    } else {
+      ['ln-paper','res-paper','lbl-paper'].forEach(s);
+      showResult('paper');
+    }
+  }
+}
+</script>
+</body>
+</html>
